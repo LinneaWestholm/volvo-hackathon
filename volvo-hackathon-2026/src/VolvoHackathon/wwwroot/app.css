@@ -1,0 +1,99 @@
+/* Theme colours. Change these to restyle the whole app. */
+:root {
+    --color-primary: #1C2B39;       /* navy: logo and page title */
+    --color-primary-light: #2E4153;
+    --color-accent: #2A609D;        /* primary buttons, focus */
+    --color-background: #C9D7E8;    /* page around the content, slightly darker blue */
+    --color-content: #E3EBF5;       /* the centered content area */
+    --color-surface: #FFFFFF;
+    --color-border: #E1E4E8;
+    --color-text: #1F1F1F;
+    --color-text-muted: #6B7280;
+    --color-on-primary: #FFFFFF;
+    --color-selected: #E3ECF7;
+    --color-error: #C62828;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-background);
+}
+
+h1 {
+    margin: 0 0 16px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+    h1:focus {
+        outline: none;
+    }
+
+.muted {
+    color: var(--color-text-muted);
+}
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+/* Buttons and inputs */
+.btn-primary {
+    padding: 8px 18px;
+    font: inherit;
+    color: var(--color-on-primary);
+    background: var(--color-accent);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        filter: brightness(1.1);
+    }
+
+.input {
+    padding: 7px 10px;
+    font: inherit;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 320px;
+}
+
+    .input:focus, .btn-primary:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 1px;
+    }
+
+.search {
+    margin-bottom: 12px;
+}
+
+.validation-message {
+    color: var(--color-error);
+    font-size: 0.9rem;
+}
+
+.invalid {
+    outline: 1px solid var(--color-error);
+}
+
+.blazor-error-boundary {
+    background: #b32121;
+    padding: 1rem;
+    color: white;
+}
+
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }

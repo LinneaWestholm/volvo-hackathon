@@ -1,0 +1,41 @@
+@* One agent row in factory monitoring: robot and name on the left, status on the right. *@
+<div class="agent-card card" style="--agent-tint: @Colors.Tint; --agent-accent: @Colors.Accent">
+    <div class="agent-identity">
+        <span class="agent-icon" aria-hidden="true">🤖</span>
+        <h2 class="agent-name">@Name</h2>
+    </div>
+
+    <div class="status-field">
+        <span class="field-label">Status</span>
+        <span class="status-icon" role="img" aria-label="@(IsActive ? "Active" : "Inactive")" title="@(IsActive ? "Active" : "Inactive")">
+            @if (IsActive)
+            {
+                <span aria-hidden="true">✅</span>
+            }
+            else
+            {
+                @* No emoji exists for a red box with a white cross, so draw one to match ✅ *@
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <defs>
+                        <linearGradient id="inactive-fill" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#F7686B" />
+                            <stop offset="1" stop-color="#D42A2D" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="1" y="1" width="22" height="22" rx="5" fill="url(#inactive-fill)" />
+                    <path d="M7.5 7.5 16.5 16.5 M16.5 7.5 7.5 16.5" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" />
+                </svg>
+            }
+        </span>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Name { get; set; } = "";
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    private AgentColors.Palette Colors => AgentColors.For(Name);
+}

@@ -1,0 +1,61 @@
+/* Fixed-width agent column; the chat gets the rest of the width and the full height.
+   --top-row and --card-gap are shared with the chat title so the logo row and the chat title line up,
+   and the agent cards line up with the chat window. */
+.monitoring {
+    --top-row: 64px;
+    --card-gap: 12px;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+    height: 100%;
+}
+
+.agent-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    min-height: 0;
+    overflow-y: auto; /* only if the window is too short for all cards */
+}
+
+    /* Cards share the height below the logo evenly, so the last one ends where the chat ends */
+    .agent-list ::deep .agent-card {
+        flex: 1 1 0;
+        min-height: 72px;
+    }
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+    /* The gap below this row is added to the chat header height, so the first card lines up with the messages */
+    height: var(--top-row);
+    padding: 0 4px;
+}
+
+.brand-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.brand-title {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* Narrow screens: agents above the chat */
+@media (max-width: 640px) {
+    .monitoring {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+        .monitoring ::deep .chat-panel {
+            height: 75vh;
+        }
+}

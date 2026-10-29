@@ -1,0 +1,59 @@
+.agent-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    min-width: 0;
+    /* Agent's own colour (set inline from AgentColors) */
+    background: var(--agent-tint);
+    border-left: 5px solid var(--agent-accent);
+}
+
+.agent-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.agent-icon {
+    font-size: 3.2rem;
+    line-height: 1;
+}
+
+.agent-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--agent-accent);
+}
+
+.status-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.field-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.6); /* readable on every card colour */
+}
+
+.status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.1em; /* fixed so ✅ and the drawn cross take the same space */
+    font-size: 2.6rem;
+    line-height: 1;
+}
+
+    .status-icon svg {
+        width: 1.05em;
+        height: 1.05em;
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+    }

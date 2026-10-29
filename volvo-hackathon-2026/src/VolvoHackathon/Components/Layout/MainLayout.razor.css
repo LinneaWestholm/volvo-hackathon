@@ -1,0 +1,46 @@
+/* Centered column, 70% of the window wide and the full window tall, so the chat gets all the height */
+.content {
+    width: 70%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--color-content);
+    box-shadow: 0 0 24px rgba(28, 43, 57, 0.12);
+}
+
+/* Below this width 70% is too narrow for the agent column plus a usable chat */
+@media (max-width: 1000px) {
+    .content {
+        width: 100%;
+    }
+}
+
+/* Phones: let the page scroll instead of fitting everything into one screen */
+@media (max-width: 640px) {
+    .content {
+        height: auto;
+        min-height: 100vh;
+        padding: 12px;
+    }
+}
+
+#blazor-error-ui {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }

@@ -1,0 +1,56 @@
+@* WhatsApp-style conversation between the agents. Updates live when AgentChatService.Add is called. *@
+@implements IDisposable
+@inject AgentChatService Chat
+
+<div class="chat-panel">
+<h2 class="chat-label"><span class="chat-label-icon" aria-hidden="true">🤖</span> Agent chat</h2>
+
+<section class="chat card" aria-label="Agent chat">
+
+    @* chat-body holds the wallpaper layer; chat-scroll scrolls the messages over it *@
+    <div class="chat-body">
+    @* column-reverse keeps the view on the newest message once the box is full *@
+    <div class="chat-scroll">
+        <div class="chat-messages">
+            @{ var messages = Chat.Messages; }
+            @if (messages.Count == 0)
+            {
+                <p class="chat-empty">No messages yet</p>
+            }
+            @foreach (var msg in messages)
+            {
+                var side = Side(msg.Agent);
+                var colors = AgentColors.For(msg.Agent);
+
+                @* @key keeps existing bubbles in place, so only new ones play the pop-in animation *@
+                <div @key="msg.Id" class="chat-message @side">
+                    <div class="chat-bubble" style="--bubble: @colors.Tint">
+                        <div class="chat-agent" style="color: @colors.Accent">@msg.Agent</div>
+                        <span class="chat-text">@msg.Text</span>
+                        <span class="chat-meta">
+                            @msg.Timestamp.ToString("HH:mm")
+                            @if (side == "right")
+                            {
+                                <span class="chat-ticks" aria-hidden="true">✓✓</span>
+                            }
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+</section>
+</div>
+
+@code {
+    // Agents 2 and 4 on the right, everyone else on the left, so it reads like a conversation
+    private static string Side(string agent) =>
+        agent.StartsWith("Agent ") && int.TryParse(agent.AsSpan(6), out var n) && n % 2 == 0 ? "right" : "left";
+
+    protected override void OnInitialized() => Chat.MessageAdded += OnMessageAdded;
+
+    private void OnMessageAdded() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => Chat.MessageAdded -= OnMessageAdded;
+}

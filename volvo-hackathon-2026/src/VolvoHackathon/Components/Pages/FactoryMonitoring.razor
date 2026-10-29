@@ -1,0 +1,30 @@
+@page "/"
+@implements IDisposable
+@inject AgentStatusService AgentStatus
+
+<PageTitle>Factory Monitoring</PageTitle>
+
+<div class="monitoring">
+    <div class="agent-list">
+        <header class="brand">
+            <img class="brand-logo" src="@Assets["images/volvo-logo.svg"]" alt="Volvo" />
+            <h1 class="brand-title">Factory Monitoring</h1>
+        </header>
+
+        @for (int i = 0; i < AgentStatusService.AgentCount; i++)
+        {
+            @* Index 0 = Agent 1, matching FactoryResponse.AgentsRunning *@
+            <AgentCard Name="@($"Agent {i + 1}")" IsActive="AgentStatus.IsRunning(i)" />
+        }
+    </div>
+
+    <AgentChat />
+</div>
+
+@code {
+    protected override void OnInitialized() => AgentStatus.Changed += OnStatusChanged;
+
+    private void OnStatusChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => AgentStatus.Changed -= OnStatusChanged;
+}
